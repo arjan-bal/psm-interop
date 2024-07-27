@@ -303,7 +303,7 @@ class KubernetesNamespace:  # pylint: disable=too-many-public-methods
     WAIT_SHORT_SLEEP: Final[_timedelta] = _timedelta(seconds=1)
     WAIT_SHORT_SLEEP_SEC: Final[int] = WAIT_SHORT_SLEEP.seconds
     # TODO(sergiitk): timedelta form for the rest
-    WAIT_MEDIUM_TIMEOUT_SEC: int = 5 * 60
+    WAIT_MEDIUM_TIMEOUT_SEC: int = 15 * 60
     WAIT_MEDIUM_SLEEP_SEC: int = 10
     WAIT_LONG_TIMEOUT_SEC: int = 10 * 60
     WAIT_LONG_SLEEP_SEC: int = 30
