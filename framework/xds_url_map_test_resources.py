@@ -281,7 +281,7 @@ class GcpResourceManager(metaclass=_MetaSingletonAndAbslFlags):
                 source_range_ipv6=self.firewall_source_range_ipv6,
             )
         # Health Checks
-        self.td.create_health_check()
+        # self.td.create_health_check()
         # Backend Services
         # self.td.create_backend_service()
         # self.td.create_alternative_backend_service()
