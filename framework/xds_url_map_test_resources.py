@@ -260,7 +260,7 @@ class GcpResourceManager(metaclass=_MetaSingletonAndAbslFlags):
         # Cleanup existing debris
         logging.info("GcpResourceManager: pre clean-up")
         self.td.cleanup(force=True)
-        self.test_server_runner.delete_namespace()
+        # self.test_server_runner.delete_namespace()
 
     def setup(self, test_case_classes: Iterable["XdsUrlMapTestCase"]) -> None:
         if self.strategy not in ["create", "keep"]:
@@ -270,7 +270,7 @@ class GcpResourceManager(metaclass=_MetaSingletonAndAbslFlags):
             )
             return
         # Clean up debris from previous runs
-        # self._pre_cleanup()
+        self._pre_cleanup()
         # Start creating GCP resources
         logging.info("GcpResourceManager: start setup")
         # Firewall
@@ -281,24 +281,24 @@ class GcpResourceManager(metaclass=_MetaSingletonAndAbslFlags):
                 source_range_ipv6=self.firewall_source_range_ipv6,
             )
         # Health Checks
-        # self.td.create_health_check()
+        self.td.create_health_check()
         # Backend Services
-        # self.td.create_backend_service()
-        # self.td.create_alternative_backend_service()
-        # self.td.create_affinity_backend_service()
+        self.td.create_backend_service()
+        self.td.create_alternative_backend_service()
+        self.td.create_affinity_backend_service()
         # Construct UrlMap from test classes
-        # aggregator = _UrlMapChangeAggregator(
-        #     url_map_name=self.td.make_resource_name(self.td.URL_MAP_NAME)
-        # )
-        # for test_case_class in test_case_classes:
-        #     aggregator.apply_change(test_case_class)
-        # final_url_map = aggregator.get_map()
+        aggregator = _UrlMapChangeAggregator(
+            url_map_name=self.td.make_resource_name(self.td.URL_MAP_NAME)
+        )
+        for test_case_class in test_case_classes:
+            aggregator.apply_change(test_case_class)
+        final_url_map = aggregator.get_map()
         # UrlMap
-        # self.td.create_url_map_with_content(final_url_map)
+        self.td.create_url_map_with_content(final_url_map)
         # Target Proxy
-        # self.td.create_target_proxy()
+        self.td.create_target_proxy()
         # Forwarding Rule
-        # self.td.create_forwarding_rule(self.server_xds_port)
+        self.td.create_forwarding_rule(self.server_xds_port)
         # Kubernetes Test Server
         # self.test_server_runner.run(
         #     test_port=self.server_port,
